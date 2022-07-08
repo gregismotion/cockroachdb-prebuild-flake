@@ -1,5 +1,5 @@
 {
-  description = "The best of Auth0 and Keycloak combined.";
+  description = "A scalable, survivable, strongly-consistent SQL database.";
 
   inputs = {
     nixpkgs.url = github:NixOS/nixpkgs;
@@ -13,21 +13,21 @@
       };
 
       stdenv.mkDerivation rec {
-        name = "zitadel-${version}";
-        version = "v2.0.0-v2-alpha.39";
+        name = "cockroachdb-${version}";
+        version = "v22.1.0";
 
         src = pkgs.fetchurl {
-                url = "https://github.com/zitadel/zitadel/releases/download/${version}/zitadel_Linux_x86_64.tar.gz";
-                sha256 = "sha256-v86DTU70bOKFJ8wL6KxxlWC7ymPlywNSoWKJo+h/zHY=";
+                url = "https://binaries.cockroachdb.com/cockroach-${version}.linux-amd64.tgz";
+                sha256 = "sha256-1K7jUf7GSthlyYF64Zkn0kOaSDJSkbb1n2UNRqA2qR4=";
         };
         sourceRoot = ".";
         
         installPhase = ''
-        install -m755 -D zitadel $out/bin/zitadel
+        install -m755 -D cockroachdb $out/bin/cockroachdb
         '';
 
         meta = with lib; {
-                homepage = "https://zitadel.com/";
+                homepage = "https://www.cockroachlabs.com";
                 description = self.description;
                 platforms = platforms.linux;
         };
@@ -35,4 +35,4 @@
   };
 }
 
-# github.com/thegergo02/zitadel-prebuild-flake
+# github.com/thegergo02/cockroachdb-prebuild-flake

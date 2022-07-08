@@ -14,16 +14,20 @@
 
       stdenv.mkDerivation rec {
         name = "cockroachdb-${version}";
-        version = "v22.1.0";
+        version = "22.1.0";
 
         src = pkgs.fetchurl {
-                url = "https://binaries.cockroachdb.com/cockroach-${version}.linux-amd64.tgz";
+                url = "https://binaries.cockroachdb.com/cockroach-v${version}.linux-amd64.tgz";
                 sha256 = "sha256-1K7jUf7GSthlyYF64Zkn0kOaSDJSkbb1n2UNRqA2qR4=";
         };
         sourceRoot = ".";
         
+        nativeBuildInputs = [
+          autoPatchelfHook
+        ];
+
         installPhase = ''
-        install -m755 -D cockroachdb $out/bin/cockroachdb
+        install -m755 -D cockroach-v${version}.linux-amd64/cockroach $out/bin/cockroach
         '';
 
         meta = with lib; {

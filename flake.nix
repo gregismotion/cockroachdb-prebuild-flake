@@ -10,6 +10,7 @@
     nixpkgs, 
   }: {
     packages."x86_64-linux".default = nixpkgs.legacyPackages."x86_64-linux".callPackage ./cockroachdb.nix {};
+    nixosModules.default = import ./module.nix self;
   };
 }
 

@@ -5,9 +5,9 @@ self: {
   ...
 }:
 with lib; let
-  cfg = config.services.cockroachdb;
+  cfg = config.services.cockroachdb22;
 in {
-  options.services.cockroachdb = {
+  options.services.cockroachdb22 = {
     enable = mkEnableOption "CockroachDB";
     package = mkOption {
       type = types.package;
@@ -17,7 +17,7 @@ in {
   };
 
   config = mkIf cfg.enable {
-    systemd.services.cockroachdb = {
+    systemd.services.cockroachdb22 = {
       description = "Starts CockroachDB.";
       wantedBy = [ "multi-user.target" ];
       serviceConfig.ExecStart = "${cfg.package}/bin/cockroach start-single-node --http-addr :9090 --listen-addr=localhost";

@@ -14,6 +14,10 @@ in {
       default = self.packages.${pkgs.system}.default;
       description = "CockroachDB package to use.";
     };
+    workingDirectory = mkOption {
+      type = types.path;
+      description = "Path where CockroachDB should store it's data.";
+    };
   };
 
   config = mkIf cfg.enable {
@@ -21,6 +25,7 @@ in {
       description = "Starts CockroachDB.";
       wantedBy = [ "multi-user.target" ];
       serviceConfig.ExecStart = "${cfg.package}/bin/cockroach start-single-node --insecure --http-addr :9090 --listen-addr=localhost";
+      serviceConfig.WorkingDirectory = cfg.workingDirectory;
     };
   };
 }

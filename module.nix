@@ -25,7 +25,9 @@ in {
       description = "Starts CockroachDB.";
       wantedBy = [ "multi-user.target" ];
       serviceConfig = {
-        ExecStart = "${cfg.package}/bin/cockroach start-single-node --insecure --http-addr :9090 --listen-addr=localhost";
+        ExecStart = ''
+          ${cfg.package}/bin/cockroach start-single-node --insecure --http-addr :9090 --listen-addr=localhost
+          '';
         WorkingDirectory = cfg.workingDirectory;
         Type = "simple";
       };

@@ -24,8 +24,11 @@ in {
     systemd.services.cockroachdb22 = {
       description = "Starts CockroachDB.";
       wantedBy = [ "multi-user.target" ];
-      serviceConfig.ExecStart = "${cfg.package}/bin/cockroach start-single-node --insecure --http-addr :9090 --listen-addr=localhost";
-      serviceConfig.WorkingDirectory = cfg.workingDirectory;
+      serviceConfig = {
+        ExecStart = "${cfg.package}/bin/cockroach start-single-node --insecure --http-addr :9090 --listen-addr=localhost --background";
+        WorkingDirectory = cfg.workingDirectory;
+        Type = "forking";
+      };
     };
   };
 }
